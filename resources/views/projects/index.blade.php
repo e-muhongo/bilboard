@@ -2,25 +2,30 @@
 
 @section('content')
 
-      <div class="flex mb-3">
+      <header class="flex items-center mb-3 pb-4 ">
 
-          <a href="/projects/create">New Project</a>
+          <div class="flex justify-between items-end w-full">
 
-      </div>
+              <h2 class="text-muted text-base font-light">My Projects</h2>
+
+              <a class="button" href="/projects/create" @click.prevent="$modal.show('new-project-modal')">New Project</a>
+
+          </div>
+
+      </header>
 
 
-      <div class="flex">
+      <main class="lg:flex lg:flex-wrap -mx-3">
+
           @forelse ($projects as $project)
-            <div class="bg-white mr-4 rounded shadow">
 
-                <h3>{{ $project->title }}</h3>
+            <div class="lg:w-1/4 px-3 pb-6" >
 
-                <div class="">
-                  {{ $project->description }}
-                </div>
+              @include('projects.card')
 
             </div>
-        @empty
+
+          @empty
 
             <div class="">
                   No projects yet
@@ -29,6 +34,10 @@
 
         @endforelse
 
-      </div>
+      </main>
+
+      <new-project-modal> </new-project-modal>
+
+
 
 @endsection

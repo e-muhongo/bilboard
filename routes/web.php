@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +19,12 @@ Route::get('/', function () {
 
 Route::group(['middleware'=>'auth'], function(){
 
-  Route::get('/projects','ProjectsController@index');
-  Route::get('/projects/create','ProjectsController@create');
-  Route::get('/projects/{project}','ProjectsController@show');
-  Route::post('/projects','ProjectsController@store');
+    Route::resource('projects','ProjectsController');
+    Route::post('/projects/{project}/tasks','ProjectTasksController@store');
+    Route::patch('/projects/{project}/tasks/{task}','ProjectTasksController@update');
 
+    Route::post('/projects/{project}/invitations', 'ProjectInvitationsController@store');
+    Route::get('/home', 'HomeController@index')->name('home');
 });
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 
 Auth::routes();
